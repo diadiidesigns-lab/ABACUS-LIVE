@@ -1,0 +1,43 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Room {
+  id          String     @id @default(cuid())
+  title       String
+  capacity    Int        @default(20)
+  isLive      Boolean    @default(false)
+  passcode    String     @default("1234") // Simple PIN gate
+  attendees   Attendee[]
+  signals     Signal[]
+  createdAt   DateTime   @default(now())
+  endedAt     DateTime?
+}
+
+model Attendee {
+  id        String   @id @default(cuid())
+  name      String
+  seatId    String
+  roomId    String
+  room      Room     @relation(fields: [roomId], references: [id])
+  joinedAt  DateTime @default(now())
+  @@unique([name, roomId]) // One name per room
+}
+
+model Signal {
+  id          String   @id @default(cuid())
+  roomId      String
+  room        Room     @relation(fields: [roomId], references: [id])
+  seatId      String
+  studentName String   @default("")
+  greenBeads  Int
+  redBeads    Int
+  intensity   Float
+  timestamp   DateTime @default(now())
+}

@@ -1,19 +1,56 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* --- Surface --- */
+  --color-abacus-bone:       #F5F5F7;
+  --color-abacus-charcoal:   #1A1A1A;
+
+  /* --- Signal Poles (Spec-exact) --- */
+  --color-abacus-friction:    #E63946;
+  --color-abacus-confidence:  #2D6A4F;
+  --color-abacus-neutral:     #D1D1D1;
+
+  /* --- Six-Dot Brand Seal --- */
+  --color-seal-rose:     #F2A4A4;
+  --color-seal-amber:    #F5C878;
+  --color-seal-sage:     #A8C5A0;
+  --color-seal-mint:     #8DD5C3;
+  --color-seal-sky:      #8DC4E8;
+  --color-seal-lavender: #B8ADDB;
+
+  /* --- Typography (populated by next/font via layout.tsx) --- */
+  --font-logotype: var(--font-montserrat-alt, 'Montserrat Alternates', sans-serif);
+  --font-headline: var(--font-quicksand,       'Quicksand',             sans-serif);
+  --font-body:     var(--font-montserrat,       'Montserrat',            sans-serif);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --background: var(--color-abacus-bone);
+  --foreground: var(--color-abacus-charcoal);
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background:  var(--background);
+  color:       var(--foreground);
+  font-family: var(--font-body);
+  font-weight: 500; /* Montserrat Medium — spec requirement for legibility */
+}
+
+/* --- Bead track inset (spec: inset 0 2px 5px rgba(0,0,0,0.08)) --- */
+.track-inset {
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+/* --- Raised bead (spec: "sandblasted", appears lifted) --- */
+.bead-raised {
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+/* --- Print styles for reports --- */
+@media print {
+  .print\:hidden { display: none !important; }
+  body { background: #fff; }
 }
