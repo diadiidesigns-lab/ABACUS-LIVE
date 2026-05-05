@@ -48,3 +48,5 @@ dev.db
 # editor swap files
 *.swp
 *.swo
+# auth tokens (do not commit)
+.token
