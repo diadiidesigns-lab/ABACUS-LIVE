@@ -6,7 +6,7 @@ import { prisma } from "@/lib/prisma";
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
 export async function processClassroomSignal(roomId: string, seatId: string, rawInput: string) {
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const model = genAI.getGenerativeModel({ model: "gemini-3.8-flash" });
 
   const prompt = `
     Analyze the following classroom interaction snippet: "${rawInput}"
@@ -93,7 +93,7 @@ export async function generateTeacherInsight(roomId: string) {
       Total beads moved to Confidence (Green): ${totalConfidence}
     `;
 
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-3.8-flash" });
     const prompt = `
       You are the ABACUS AI, a smart, conversational co-pilot for a classroom teacher. 
       Your job is to read the physical dynamics of the room and provide a single, helpful nudge.
